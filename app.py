@@ -9,17 +9,15 @@ DATA_URL = "https://ecocanvas-s3.s3.ap-northeast-2.amazonaws.com/TEST.png"
 st.image(DATA_URL)
 st.info("파일선택")
 save_file = r'./upload/file'
-number = None
 pdf = st.file_uploader(label='Drag the PDF file here. Limit 100MB')
+file_path = None
 if pdf is not None:
         file_name = pdf.name
         match = re.search(r'\d+', file_name)
-        if match:
-            number = int(match.group())
-
         file_path = os.path.join(save_file, file_name)
         st.success("WAV 파일 업로드 완료")
-        
+st.info(file_path)
+
 if pdf is not None:
     s3 = boto3.client(
         service_name='s3',
@@ -31,13 +29,13 @@ if pdf is not None:
     
     id = 123
     bucket_name = 'ecocanvas-s3'
-    st.info(pdf.name)
+    st.info(file_path)
     st.info(type(pdf))
     
     pdf.seek(0)
     name = "pdf_" + str(id) + ".pdf"
     st.info(name)
-    s3.upload_file(pdf.name, bucket_name, name)
+    s3.upload_file(file_path, bucket_name, name)
 with st.sidebar:
     st.info("TEST Sidebar")
 
