@@ -14,9 +14,11 @@ st.info("파일선택")
 pdf = st.file_uploader(label='Drag the PDF file here. Limit 100MB')
 
 conn = st.experimental_connection('s3', type=FilesConnection)
-df = conn.read("ecocanvas-s3/TEST.png", input_format="png", ttl=600)
+df = conn.read("ecocanvas-s3/Delay_Prob.csv", input_format="csv", ttl=600)
+
+for row in df.itertuples():
+    st.write(f"{row.Owner} has a :{row.Pet}:")
 
 with st.sidebar:
     st.info("TEST Sidebar")
 
-    
