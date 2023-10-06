@@ -1,14 +1,27 @@
 import streamlit as st
 import os
 import boto3
+import re
 script_directory = os.path.dirname(os.path.abspath(__file__))
 os.chdir(script_directory)
 #from streamlit_option_menu import option_menu
 DATA_URL = "https://ecocanvas-s3.s3.ap-northeast-2.amazonaws.com/TEST.png"
 st.image(DATA_URL)
 st.info("파일선택")
-
+save_file = r'./upload/file'
+number = None
 pdf = st.file_uploader(label='Drag the PDF file here. Limit 100MB')
+if pdf is not None:
+        file_name = pdf.name
+        match = re.search(r'\d+', file_name)
+        if match:
+            number = int(match.group())
+
+        file_path = os.path.join(save_file, file_name)
+        with open(file_path, "wb") as f:
+            f.write(pdf.read())
+        
+        st.success("WAV 파일 업로드 완료")
 if pdf is not None:
     s3 = boto3.client(
         service_name='s3',
