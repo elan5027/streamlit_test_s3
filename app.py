@@ -1,12 +1,7 @@
 import streamlit as st
 #from streamlit_option_menu import option_menu
-from st_files_connection import FilesConnection
-
-
-conn = st.experimental_connection('s3', type=FilesConnection)
-st.info(conn)
-df = conn.read("TEST.png", input_format="png", ttl=600)
-
+DATA_URL = "https://ecocanvas-s3.s3.ap-northeast-2.amazonaws.com/TEST.png"
+st.image(DATA_URL)
 st.info("파일선택")
 
 with st.sidebar:
