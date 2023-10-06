@@ -20,13 +20,13 @@ if pdf is not None:
     
     id = 123
     bucket_name = 'ecocanvas-s3'
-    st.info(pdf)
+    st.info(pdf.name)
     st.info(type(pdf))
     
     pdf.seek(0)
     name = "pdf_" + str(id) + ".pdf"
     st.info(name)
-    s3.upload_file(pdf, bucket_name, name)
+    s3.upload_file(pdf.name, bucket_name, name)
 with st.sidebar:
     st.info("TEST Sidebar")
 
