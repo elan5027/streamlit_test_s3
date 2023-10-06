@@ -1,3 +1,6 @@
 boto3
 streamlit
 streamlit-option-menu
+re
+audio_transform
+matplotlib

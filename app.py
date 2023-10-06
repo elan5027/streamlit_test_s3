@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 import boto3
+import audio_transform as at 
 import re
 script_directory = os.path.dirname(os.path.abspath(__file__))
 os.chdir(script_directory)
@@ -19,25 +20,34 @@ if pdf is not None:
             f.write(pdf.read())
         st.success("WAV 파일 업로드 완료")
 st.info(file_path)
-
-if pdf is not None:
-    s3 = boto3.client(
-        service_name='s3',
-        region_name=st.secrets["AWS_DEFAULT_REGION"] ,
-        aws_access_key_id=st.secrets["AWS_ACCESS_KEY_ID"] ,
-        aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"] ,
-    )
-    st.info(s3)
+if file_path is not None:
+        # 사운드 플레이
+        st.audio(file_path)
+        # wav 저장/출력
+        wav_file = at.save_wav(file_path, save_file)
+        st.image(wav_file)
+        
+        # wav 정보 출력
+        params = at.get_wav_param(file_path)
+        st.write(params)
+# if pdf is not None:
+#     s3 = boto3.client(
+#         service_name='s3',
+#         region_name=st.secrets["AWS_DEFAULT_REGION"] ,
+#         aws_access_key_id=st.secrets["AWS_ACCESS_KEY_ID"] ,
+#         aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"] ,
+#     )
+#     st.info(s3)
     
-    id = 123
-    bucket_name = 'ecocanvas-s3'
-    st.info(file_path)
-    st.info(type(pdf))
+#     id = 123
+#     bucket_name = 'ecocanvas-s3'
+#     st.info(file_path)
+#     st.info(type(pdf))
     
-    pdf.seek(0)
-    name = "TEST" + str(id) + ".wav"
-    st.info(name)
-    s3.upload_file(file_path, bucket_name, name)
+#     pdf.seek(0)
+#     name = "TEST" + str(id) + ".wav"
+#     st.info(name)
+#     s3.upload_file(file_path, bucket_name, name)
 with st.sidebar:
     st.info("TEST Sidebar")
 
