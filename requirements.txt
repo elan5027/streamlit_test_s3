@@ -2,5 +2,5 @@ boto3
 streamlit
 streamlit-option-menu
 re
-audio_transform
-matplotlib
+s3fs
+FilesConnection
