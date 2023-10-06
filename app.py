@@ -14,7 +14,7 @@ st.info("파일선택")
 pdf = st.file_uploader(label='Drag the PDF file here. Limit 100MB')
 
 conn = st.experimental_connection('s3', type=FilesConnection)
-df = conn.read("ecocanvas-s3/TEST.pdf", input_format="pdf", ttl=600)
+df = conn.read("ecocanvas-s3/TEST.png", input_format="png", ttl=600)
 
 with st.sidebar:
     st.info("TEST Sidebar")
