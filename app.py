@@ -10,12 +10,14 @@ st.info("파일선택")
 
 pdf = st.file_uploader(label='Drag the PDF file here. Limit 100MB')
 if pdf is not None:
-    s3 = boto3.resource(
+    s3 = boto3.client(
         service_name='s3',
         region_name=st.secrets["AWS_DEFAULT_REGION"] ,
         aws_access_key_id=st.secrets["AWS_ACCESS_KEY_ID"] ,
         aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"] ,
     )
+    st.info(s3)
+    
     id = 123
     bucket_name = 'ecocanvas-s3'
     print(pdf)
@@ -23,7 +25,7 @@ if pdf is not None:
     pdf.seek(0)
     name = "pdf_" + str(id) + ".pdf"
     print(name)
-    s3.upload_fileobj(pdf, "pdf_storage", name)
+    s3.upload_file(pdf, bucket_name, name)
 with st.sidebar:
     st.info("TEST Sidebar")
 
