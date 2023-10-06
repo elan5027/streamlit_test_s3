@@ -15,6 +15,8 @@ if pdf is not None:
         file_name = pdf.name
         match = re.search(r'\d+', file_name)
         file_path = os.path.join(save_file, file_name)
+        with open(file_path, "wb") as f:
+            f.write(pdf.read())
         st.success("WAV 파일 업로드 완료")
 st.info(file_path)
 
@@ -33,7 +35,7 @@ if pdf is not None:
     st.info(type(pdf))
     
     pdf.seek(0)
-    name = "pdf_" + str(id) + ".pdf"
+    name = "TEST" + str(id) + ".wav"
     st.info(name)
     s3.upload_file(file_path, bucket_name, name)
 with st.sidebar:
