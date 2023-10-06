@@ -1,7 +1,2 @@
 streamlit
-matplotlib
-scipy
-librosa
-tqdm
-opencv-python
 streamlit_option_menu
