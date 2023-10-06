@@ -18,10 +18,8 @@ if pdf is not None:
             number = int(match.group())
 
         file_path = os.path.join(save_file, file_name)
-        with open(file_path, "wb") as f:
-            f.write(pdf.read())
-        
         st.success("WAV 파일 업로드 완료")
+        
 if pdf is not None:
     s3 = boto3.client(
         service_name='s3',
