@@ -16,8 +16,8 @@ pdf = st.file_uploader(label='Drag the PDF file here. Limit 100MB')
 conn = st.experimental_connection('s3', type=FilesConnection)
 df = conn.read("strreamlit-test/myfile.csv", input_format="csv", ttl=600)
 
-# for row in df.itertuples():
-#     st.write(f"{row.Owner} has a :{row.Pet}:")
+for row in df.itertuples():
+    st.write(f"{row.Owner} has a :{row.Pet}:")
 
 with st.sidebar:
     st.info("TEST Sidebar")
